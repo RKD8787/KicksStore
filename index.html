@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KicksStore | Premium Sneakers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Shopping Cart Overlay (dark background) -->
+    <div class="cart-overlay"></div>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <p class="empty-cart-msg">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">₹0</span>
+            </div>
+            <button class="btn btn-primary">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Filter Overlay (dark background) -->
+    <div class="filter-overlay"></div>
+    
+    <!-- Filter Sidebar -->
+    <div class="filter-drawer">
+        <div class="filter-header">
+            <h3>Filters</h3>
+            <button class="filter-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="filter-content">
+            <!-- Brand Filter -->
+            <div class="filter-group">
+                <h3>Brands</h3>
+                <button class="filter-btn active" data-filter-type="brand" data-filter-value="all">All Brands</button>
+                <button class="filter-btn" data-filter-type="brand" data-filter-value="nike">Nike</button>
+                <button class="filter-btn" data-filter-type="brand" data-filter-value="adidas">Adidas</button>
+                <button class="filter-btn" data-filter-type="brand" data-filter-value="puma">Puma</button>
+                <button class="filter-btn" data-filter-type="brand" data-filter-value="newbalance">New Balance</button>
+            </div>
+            
+            <!-- Gender Filter -->
+            <div class="filter-group">
+                <h3>Gender</h3>
+                <button class="filter-btn active" data-filter-type="gender" data-filter-value="all">All</button>
+                <button class="filter-btn" data-filter-type="gender" data-filter-value="men">Men</button>
+                <button class="filter-btn" data-filter-type="gender" data-filter-value="women">Women</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Sidebar -->
+    <div class="user-overlay"></div>
+    
+    <div class="user-drawer">
+        <div class="user-header">
+            <h3>My Account</h3>
+            <button class="user-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="user-content">
+            <!-- Not Logged In -->
+            <div id="user-not-logged-in" class="user-section">
+                <h4>Welcome to KicksStore</h4>
+                <p>Please sign in to access your account</p>
+                <button class="btn btn-primary" id="login-btn">Sign In</button>
+                <button class="btn btn-secondary" id="signup-btn">Create Account</button>
+            </div>
+            
+            <!-- Logged In -->
+            <div id="user-logged-in" class="user-section" style="display: none;">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4 id="user-name">John Doe</h4>
+                        <p id="user-email">john@example.com</p>
+                    </div>
+                </div>
+                
+                <div class="user-menu">
+                    <a href="#" class="user-menu-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="user-menu-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Addresses</span>
+                    </a>
+                    <a href="#" class="user-menu-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Order History</span>
+                    </a>
+                    <a href="#" class="user-menu-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="#" class="user-menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <button class="user-menu-item logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="user-section" style="display: none;">
+                <h4>Sign In</h4>
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+                <p class="form-footer">
+                    <a href="#" id="forgot-password">Forgot Password?</a>
+                </p>
+                <p class="form-footer">
+                    Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a>
+                </p>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signup-form" class="user-section" style="display: none;">
+                <h4>Create Account</h4>
+                <form id="signup-form-element">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+                <p class="form-footer">
+                    Already have an account? <a href="#" id="switch-to-login">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="container header-flex">
+            <!-- Logo -->
+            <a href="#" class="logo">Kicks<span>Store</span></a>
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search for sneakers...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <!-- Navigation Links & Icons -->
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a href="#shop">Shop</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <div class="nav-icons">
+                    <a href="#" class="profile-icon" data-tooltip="Profile"><i class="far fa-user"></i></a>
+                    <a class="filter-trigger" data-tooltip="Filter">
+                        <i class="fas fa-filter"></i>
+                    </a>
+                    <a class="cart-trigger" data-tooltip="Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Step Up Your Game</h1>
+            <p>Discover the latest drops and exclusive sneaker releases</p>
+            <a href="#shop" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="section-padding">
+        <div class="container">
+            
+            <!-- Products Grid -->
+            <div class="shop-content">
+                <h2 class="section-title">Featured Sneakers</h2>
+                
+                <div class="product-grid" id="product-grid">
+                    
+                    <!-- Product 1 -->
+                    <div class="product-card" data-id="1" data-brand="nike" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=500" alt="Nike Air Zoom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Nike Air Zoom</h3>
+                            <p class="brand-label">Nike / Men</p>
+                            <p class="price">₹9,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card" data-id="2" data-brand="nike" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500" alt="Nike Court Vision">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Nike Court Vision</h3>
+                            <p class="brand-label">Nike / Women</p>
+                            <p class="price">₹7,899</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card" data-id="3" data-brand="adidas" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=500" alt="Adidas High Top">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Adidas High Top</h3>
+                            <p class="brand-label">Adidas / Men</p>
+                            <p class="price">₹14,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card" data-id="4" data-brand="puma" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500" alt="Puma RS-X">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Puma RS-X</h3>
+                            <p class="brand-label">Puma / Women</p>
+                            <p class="price">₹9,149</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card" data-id="5" data-brand="adidas" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1520256862855-398228c41684?w=500" alt="Adidas Ultraboost">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Adidas Ultraboost</h3>
+                            <p class="brand-label">Adidas / Women</p>
+                            <p class="price">₹13,299</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card" data-id="6" data-brand="newbalance" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=500" alt="New Balance 574">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">NB 574 Core</h3>
+                            <p class="brand-label">New Balance / Men</p>
+                            <p class="price">₹7,079</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 7 -->
+                    <div class="product-card" data-id="7" data-brand="nike" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1512374382149-233c42b6a83b?w=500" alt="Air Jordan 1">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Air Jordan 1 Low</h3>
+                            <p class="brand-label">Nike / Men</p>
+                            <p class="price">₹11,649</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div class="product-card" data-id="8" data-brand="puma" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1605034313761-73ea4a0cfbf3?w=500" alt="Puma Suede">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Puma Suede Classic</h3>
+                            <p class="brand-label">Puma / Men</p>
+                            <p class="price">₹5,829</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 9 - NEW -->
+                    <div class="product-card" data-id="9" data-brand="nike" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Nike React">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Nike React Infinity</h3>
+                            <p class="brand-label">Nike / Men</p>
+                            <p class="price">₹12,499</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 10 - NEW -->
+                    <div class="product-card" data-id="10" data-brand="adidas" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500" alt="Adidas Superstar">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Adidas Superstar</h3>
+                            <p class="brand-label">Adidas / Men</p>
+                            <p class="price">₹8,299</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 11 - NEW -->
+                    <div class="product-card" data-id="11" data-brand="nike" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500" alt="Nike Air Max">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Nike Air Max 270</h3>
+                            <p class="brand-label">Nike / Women</p>
+                            <p class="price">₹11,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 12 - NEW -->
+                    <div class="product-card" data-id="12" data-brand="puma" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500" alt="Puma Cali">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Puma Cali Sport</h3>
+                            <p class="brand-label">Puma / Women</p>
+                            <p class="price">₹7,499</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 13 - NEW -->
+                    <div class="product-card" data-id="13" data-brand="newbalance" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500" alt="New Balance 327">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">NB 327 Retro</h3>
+                            <p class="brand-label">New Balance / Women</p>
+                            <p class="price">₹8,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 14 - NEW -->
+                    <div class="product-card" data-id="14" data-brand="adidas" data-gender="women">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500" alt="Adidas Stan Smith">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Adidas Stan Smith</h3>
+                            <p class="brand-label">Adidas / Women</p>
+                            <p class="price">₹7,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 15 - NEW -->
+                    <div class="product-card" data-id="15" data-brand="newbalance" data-gender="men">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=500" alt="New Balance 990">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">NB 990v5</h3>
+                            <p class="brand-label">New Balance / Men</p>
+                            <p class="price">₹15,999</p>
+                            <button class="btn btn-secondary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Message when no products found -->
+                <p id="no-products-msg" style="display: none;">No products found</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding bg-white">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Amazing selection of sneakers! Found my perfect pair of Nikes here. Fast shipping and great customer service."</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Sneaker Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"KicksStore has the best prices and authentic products. I've been shopping here for years and never disappointed."</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Mike Chen</h4>
+                            <p>Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Love the user-friendly website and the quality of sneakers. The filter system makes shopping so easy!"</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Emma Davis</h4>
+                            <p>Fashion Blogger</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container">
+            <h2 class="section-title">About KicksStore</h2>
+            <div class="about-content">
+                <p>Founded in 2025, KicksStore is your premier destination for the latest sneaker releases and timeless classics. We believe that great footwear is more than just fashion—it's a lifestyle. Our mission is to provide sneaker enthusiasts with an unparalleled shopping experience, featuring authentic products from the world's top brands.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                
+                <!-- Contact Details -->
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Visit Us</h3>
+                            <p>Embassy Tech Village, Outer Ring Road<br>Bengaluru, 560103, Karnataka, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>support@kicksstore.com<br>info@kicksstore.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col">
+                    <a href="#" class="logo">Kicks<span>Store</span></a>
+                    <p>Your premium destination for authentic sneakers and streetwear.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#shop">Shop All</a>
+                    <a href="#about">About Us</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Customer Care</h4>
+                    <a href="#">Shipping Policy</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Size Guide</a>
+                    <a href="#">FAQs</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Stay Connected</h4>
+                    <p>Subscribe for exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 KicksStore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
