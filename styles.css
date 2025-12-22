@@ -211,7 +211,41 @@ a {
 }
 
 .filter-trigger {
-    data-tooltip: "Filter";
+    font-size: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+}
+
+.filter-trigger:hover {
+    color: var(--primary-color);
+    background-color: rgba(255, 78, 0, 0.1);
+}
+
+.filter-trigger::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.filter-trigger:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
 .cart-trigger {
