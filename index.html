@@ -256,8 +256,8 @@
                     <a class="filter-trigger" data-tooltip="Filter" aria-label="Open filters menu">
                         <i class="fas fa-filter"></i>
                     </a>
-                    <a href="#" class="profile-icon" aria-label="Open user profile menu"><i class="far fa-user"></i></a>
-                    <a class="cart-trigger" aria-label="Open shopping cart">
+                    <a href="#" class="profile-icon" data-tooltip="Profile" aria-label="Open user profile menu"><i class="far fa-user"></i></a>
+                    <a class="cart-trigger" data-tooltip="Cart" aria-label="Open shopping cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count" aria-label="Number of items in cart">0</span>
                     </a>
@@ -591,26 +591,6 @@
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-grid">
-                <div class="contact-form-wrapper">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label for="contact-name">Full Name</label>
-                            <input type="text" id="contact-name" class="form-input" placeholder="Your name" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-email">Email Address</label>
-                            <input type="email" id="contact-email" class="form-input" placeholder="Your email address" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" class="form-input" rows="5" placeholder="Type your message here..." required></textarea>
-                            <div class="error-message"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" aria-label="Send contact message">Send Message</button>
-                    </form>
-                </div>
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
@@ -633,6 +613,26 @@
                             <p>support@kicksstore.com</p>
                         </div>
                     </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" class="form-input" placeholder="Your name" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" class="form-input" placeholder="Your email address" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" class="form-input" rows="5" placeholder="Type your message here..." required></textarea>
+                            <div class="error-message"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" aria-label="Send contact message">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -724,6 +724,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
